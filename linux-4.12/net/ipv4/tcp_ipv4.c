@@ -124,6 +124,9 @@ int tcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp)
 	   If TW bucket has been already destroyed we fall back to VJ's scheme
 	   and use initial timestamp retrieved from peer table.
 	 */
+	/*
+	 * 如果启用了时间戳 且 启用了 tcp_tw_reuse 且 time_wait 的时长大于1秒 了
+	 */
 	if (tcptw->tw_ts_recent_stamp &&
 	    (!twp || (sock_net(sk)->ipv4.sysctl_tcp_tw_reuse &&
 			     get_seconds() - tcptw->tw_ts_recent_stamp > 1))) {
